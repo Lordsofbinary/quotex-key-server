@@ -2,14 +2,15 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Dummy activation keys — you can update them as needed
-VALID_KEYS = {"ABC123", "XYZ456", "LOQ2024"}
+VALID_KEYS = {'LOQ-MY60-KIXD', 'LOQ-GAIU-NWAS', 'LOQ-JP3E-41US', 'LOQ-CK4H-LS11', 'LOQ-8QV8-GLDW', 'LOQ-M9F8-YB8J', 'LOQ-Z9FT-K5GV', 'LOQ-USP4-XO29', 'LOQ-VWP7-8R4K', 'LOQ-OAFJ-1ZJK', 'LOQ-VFH8-SHEE', 'LOQ-3NRH-8GAG', 'LOQ-RLGW-DTCB', 'LOQ-MH9S-749U', 'LOQ-DD72-HQ2G', 'LOQ-9DQJ-JQZ6', 'LOQ-MHJI-4QXY', 'LOQ-QHEP-GLDT', 'LOQ-K8HT-Y61D', 'LOQ-7D8C-Z66E', 'LOQ-9UVL-C72L', 'LOQ-VKUZ-48ZV', 'LOQ-DN0I-K1Q7', 'LOQ-CKVR-AV94', 'LOQ-2UIO-E45I', 'LOQ-YVZ5-56XT', 'LOQ-48IW-LQVH', 'LOQ-HLOP-BJPF', 'LOQ-3RUH-V6J4', 'LOQ-C9CQ-DAJK', 'LOQ-N0O2-6HRI', 'LOQ-94SA-4PXD', 'LOQ-NBVK-P7US', 'LOQ-Y3Z5-7PA6', 'LOQ-1DTD-19DS', 'LOQ-4QWB-T52N', 'LOQ-3UA6-9FRU', 'LOQ-KVMC-7SNG', 'LOQ-1V15-3IMV', 'LOQ-WMGS-XJQE', 'LOQ-MDJQ-AG6P', 'LOQ-SA1P-SDBM', 'LOQ-RNA7-Y2IN', 'LOQ-H1IG-8VJJ', 'LOQ-KHTU-L32Q', 'LOQ-VV7P-7HTR', 'LOQ-KCTX-LRUB', 'LOQ-67E1-BQ25', 'LOQ-FE91-DEZB', 'LOQ-ARH3-PPBK', 'LOQ-YHTZ-23EK', 'LOQ-6908-VA21', 'LOQ-VTOW-KVKP', 'LOQ-VPZE-UUVH', 'LOQ-K2W4-6U9T', 'LOQ-584J-BSCY', 'LOQ-1SWQ-DH4H', 'LOQ-PG66-8O4D', 'LOQ-BE3H-QTZY', 'LOQ-HEYL-W0JZ', 'LOQ-NG79-11KO', 'LOQ-POX4-RE8Z', 'LOQ-HWZB-JKMM', 'LOQ-KWAU-0G7K', 'LOQ-JGH9-0HLT', 'LOQ-E7TW-FYLZ', 'LOQ-8FAE-LYYS', 'LOQ-A56B-SJXR', 'LOQ-X0N7-8NYB', 'LOQ-SML4-UXCQ', 'LOQ-MM6U-O2Q2', 'LOQ-5AOI-XNJ7', 'LOQ-XBJF-I8MX', 'LOQ-B2KN-OE01', 'LOQ-QSUV-H8UJ', 'LOQ-3M17-5G5M', 'LOQ-0NQF-KPDL', 'LOQ-E44Z-CNYV', 'LOQ-F88I-XXAB', 'LOQ-GWXW-H17W', 'LOQ-ZSSH-48B6', 'LOQ-VJWU-S1NG', 'LOQ-FN6S-LDTA', 'LOQ-MVQC-6OZH', 'LOQ-PBF3-O7SQ', 'LOQ-GYME-VYZX', 'LOQ-YOVS-8MK3', 'LOQ-RB2Y-RB8A', 'LOQ-UCY8-DUSE', 'LOQ-YOZB-DOD2', 'LOQ-7J5W-C02N', 'LOQ-N3T3-55UW', 'LOQ-SXRV-8DYL', 'LOQ-KOPI-DON4', 'LOQ-0674-OG9I', 'LOQ-EZHK-FPBP', 'LOQ-7PXU-NGCC', 'LOQ-W53L-QXXS', 'LOQ-RSPY-CKJ9', 'LOQ-CI0D-RR0Q'}
 
-@app.route("/verify", methods=["POST"])
+@app.route('/verify', methods=['POST'])
 def verify_key():
-    data = request.get_json()
-    user_key = data.get("key")
-    return jsonify({"valid": user_key in VALID_KEYS})
+    data = request.json
+    key = data.get('key')
+    if key in VALID_KEYS:
+        return jsonify({'status': 'success', 'message': '✅ Valid Key'}), 200
+    return jsonify({'status': 'error', 'message': '❌ Invalid Key'}), 401
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
